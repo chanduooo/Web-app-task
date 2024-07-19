@@ -5,17 +5,17 @@ pipeline {
 	}
 
     stages {
-        stage("npm build") {
+        stage("npm test") {
             steps {
                 sh '''
 		npm install	
-		npm run build
+		npm run test
 		'''
                 }
         }
-        stage("npm test") {
+        stage("npm build") {
             steps {
-                sh 'npm test'
+                sh 'npm run build'
                 }
         }
         stage("nginx installation") {

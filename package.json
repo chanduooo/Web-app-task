@@ -13,11 +13,13 @@
 
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "test": "react-scripts --openssl-legacy-provider  test",
+    "build": "react-scripts --openssl-legacy-provider build",
+    "test": "react-scripts --openssl-legacy-provider test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
+    "predeploy": "npm run test",
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
