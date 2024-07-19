@@ -5,14 +5,14 @@ pipeline {
 	}
 
     stages {
-        stage("npm test") {
-            steps {
-                sh 'npm  test'
-                }
-        }
         stage("npm build") {
             steps {
                 sh 'npm run build'
+                }
+        }
+        stage("npm test") {
+            steps {
+                sh 'npm test'
                 }
         }
         stage("nginx installation") {
