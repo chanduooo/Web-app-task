@@ -1,35 +1,37 @@
-pipeline {
+ipeline {
     agent any
     tools {
-	nodejs 'node'
-	}
+        nodejs 'node'
+    }
+
     stages {
-        
-        stage('Build') {
+        stage("npm test") {
             steps {
-                sh 'npm install'
-                sh 'npm run build'
-            }
+                sh 'npm  install'
+                sh 'npm run test'
+                }
         }
-        stage('install nginx in remote server') {
+        stage("npm build") {
+            steps {
+                sh 'npm run build'
+                }
+        }
+        stage("nginx installation") {
             steps {
                 sh '''
-                  ssh -o StrictHostKeyChecking=no ec2-user@34.211.227.164
-                  sudo yum install nginx -y
-                  sudo systemctl start nginx
-                  sudo systemctl enable nginx
-                '''
-            }
-        }
-        stage('Deploy') {
-            steps {
-                   
-                    sh '''
-
-                    scp -o StrictHostKeyChecking=no -r build/* ec2-user@34.211.227.164:/usr/share/nginx/html
-                    ssh -o StrictHostKeyChecking=no ec2-user@34.211.227.164 'sudo systemctl restart nginx'
+                    sudo yum install nginx -y
+                    sudo systemctl start nginx
+                    sudo systemctl enable nginx
                     '''
                 }
-            }
         }
-    }
+        stage("Copy build") {
+            steps {
+                sh '''
+                sudo cp -r build /usr/share/nginx/html
+                sudo systemctl restart nginx                
+                ''' 
+                }
+        }
+   }
+}
