@@ -32,7 +32,7 @@ pipeline {
         stage("Copy build") {
             steps {
                 sh '''
-                cp -r build /usr/share/nginx/html
+                sudo cp -r build /usr/share/nginx/html
                 sudo systemctl restart nginx                
                 ''' 
                 }
