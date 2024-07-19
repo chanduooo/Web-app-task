@@ -14,7 +14,7 @@ pipeline {
         stage('install nginx in remote server') {
             steps {
                 sh '''
-                  ssh ec2-user@34.211.227.164
+                  ssh -o StrictHostKeyChecking=no ec2-user@34.211.227.164
                   sudo yum install nginx -y
                   sudo systemctl start nginx
                   sudo systemctl enable nginx
